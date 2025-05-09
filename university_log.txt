@@ -1,0 +1,84 @@
+mysql> CREATE DATABASE university_db;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> CREATE TABLE students(
+    -> student_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    -> name VARCHAR(100) NOT NULL,
+    -> email VARCHAR(100) NOT NULL,
+    -> password VARCHAR(100) NOT NULL
+    -> );
+ERROR 1046 (3D000): No database selected
+mysql> CREATE TABLE students (
+    -> student_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ->  name VARCHAR(100) NOT NULL,
+    -> email VARCHAR(100) NOT NULL,
+    -> assword VARCHAR(100) NOT NULL);
+ERROR 1046 (3D000): No database selected
+mysql> USE university_db;
+Database changed
+mysql> CREATE TABLE students (
+    ->  student_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    -> name VARCHAR(100) NOT NULL,
+    -> email VARCHAR(100) NOT NULL,
+    ->  password VARCHAR(100) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> CREATE TABLE courses (
+    -> course_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    -> name VARCHAR(100) NOT NULL,
+    -> instructor VARCHAR(100),
+    -> credits INT);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> CREATE TABLE registrations (
+    -> reg_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    -> student_id INT,
+    -> course_id INT,
+    ->  date DATE,
+    -> FOREIGN KEY (student_id) REFERENCES students(student_id),
+    -> FOREIGN KEY (course_id) REFERENCES courses(course_id));
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> INSERT INTO students (name, email, password) VALUES
+    -> ('Chamika Jayawardhane','chamika123@gmail.com','abcde234'),
+    -> ('Pasindu Gunawardhane','chamika123@gmail.com','abcde234'),
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+mysql> INSERT INTO students (name, email, password) VALUES
+    -> ('Chamika Jayawardhane','chamika123@gmail.com','abcde234'),
+    -> ('Pasindu Gunawardhane','chamika123@gmail.com','abcde234');
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO courses (name, instructor, credits) VALUES
+    -> ('Software Engineering', 'Dr. Ruwanthini', 2),
+    -> ('Designe and Analysis of Algorithm', 'Dr. Ruwan', 2),
+    -> ('Server Side Web Programming', 'Dr. Isuru', 3);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO registrations (student_id, course_id, date)
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SHOW TABLES
+    -> ;
++-------------------------+
+| Tables_in_university_db |
++-------------------------+
+| courses                 |
+| registrations           |
+| students                |
++-------------------------+
+3 rows in set (0.04 sec)
+
+mysql> SELECT * FROM courses;
++-----------+-----------------------------------+----------------+---------+
+| course_id | name                              | instructor     | credits |
++-----------+-----------------------------------+----------------+---------+
+|         1 | Software Engineering              | Dr. Ruwanthini |       2 |
+|         2 | Designe and Analysis of Algorithm | Dr. Ruwan      |       2 |
+|         3 | Server Side Web Programming       | Dr. Isuru      |       3 |
++-----------+-----------------------------------+----------------+---------+
+3 rows in set (0.00 sec)
+
